@@ -1,5 +1,5 @@
 #Name: Gil-li Ness Grota
-#
+
 # def no_duplicates(lst):
 #     no_duplicates = []
 #     for item in lst:
@@ -54,28 +54,21 @@
 #
 # print("Congratulations!")
 
-def find_size(box, cabinet ):
-    in_size = True
-    cab_cubic_cc = 1
-    box_cubic_cc = 1
 
-    for i in range (3):
-        cab_cubic_cc *= cabinet[i]
-        box_cubic_cc *= box[i]
-        if box[i] < cabinet[i]:
-            return False
-    return cab_cubic_cc <= box_cubic_cc
+def aa(boxes, cabinets):
+    cabinets_boxes = list()
+    boxes.sort(key=lambda box: box[0] * box[1] * box[2])
+    for cabinet in cabinets:
+        for box_index in range(len(boxes)):
+            if boxes[box_index][0]> cabinet[0] and boxes[box_index][1]> cabinet[1] and boxes[box_index][2]> cabinet[2]:
+                cabinets_boxes.append(boxes[box_index])
+                break
+        else:
+            cabinets_boxes.append(-1)
 
-def sort_boxes(boxes, cabinets):
-    fit_boxes = []
-    for cabinet in range(len(cabinets)):
-        for box in range(len(boxes)):
-            if find_size(boxes[box], cabinets[cabinet]):
-                fit_boxes.append(box)
-    return fit_boxes
-
+    return [boxes.index(box) if not box == -1 else -1 for box in cabinets_boxes]
 
 
 box_size = [(130, 40, 30), (140, 100, 100), (180, 45, 130)]
 cabinet_size = [(120, 50, 60), (50, 40, 90)]
-print(sort_boxes(box_size, cabinet_size))
+print(aa(box_size, cabinet_size))
