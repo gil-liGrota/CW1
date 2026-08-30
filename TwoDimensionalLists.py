@@ -167,7 +167,7 @@ def print_matrix(lst):
 # for col in range(matrix_len - 1):
 #     for row in range(matrix_len - 1):
 #         for row in range(matrix_len):
-#             if row + 1 < matrix_len and col + 1 < matrix_len:
+#             if row + 1 < matrix_len or col + 1 < matrix_len:
 #                 squer_sum = matrix[row][col] + matrix[row][col + 1] + matrix[row + 1][col] + matrix[row + 1][col + 1]
 #                 if squer_sum > bigest_sum:
 #                     bigest_sum_matrix = []
@@ -181,7 +181,7 @@ def print_matrix(lst):
 #
 # print_matrix(bigest_sum_matrix)
 # print(bigest_sum)
-#
+
 #
 # def is_symmetrical(lst):
 #     for row in range(len(lst)):
@@ -195,4 +195,95 @@ def print_matrix(lst):
 #           [3, 6, 8]]
 #
 # print(is_symmetrical(matrix))
+#
+#
+# def print_spiral(lst):
+#     while lst:
+#         top = lst.pop(0)
+#         [print(item) for item in top]
+#
+#         if not lst:
+#             return
+#
+#         [print(row.pop()) for row in lst]
+#
+#         if not lst:
+#             return
+#
+#         bottom = lst.pop()
+#         [print(item) for item in bottom[::-1]]
+#
+#         if not lst:
+#             return
+#
+#         [print(row.pop(0)) for row in lst]
+#
+#         if not lst:
+#             return
+#
+#
+# print_spiral([[1,2,3],[4,5,6],[7,8,9]])
+#
+# matrix_len = random.randint(6,10)
+#
 
+
+# matrix = []
+# for row in range(matrix_len):
+#     matrix.append([])
+#     for col in range(matrix_len):
+#         matrix[row].append(random.randint(0,1))
+# print_matrix(matrix)
+#
+# def true_matrix(matrix, row, col, size):
+#     for i in range(size):
+#         for j in range(size):
+#             if matrix[row + i][col + j] == 0:
+#                 return False
+#
+#     return True
+#
+# def max_size_true(matrix):
+#     for size in range(len(matrix), 0, -1):
+#         for row in range(len(matrix) - size + 1):
+#             for col in range(len(matrix) - size + 1):
+#                 if true_matrix(matrix, row, col, size):
+#                     return size
+#
+#
+# print(max_size_true(matrix))
+
+matrix_len = random.randint(6,10)
+
+matrix = []
+for row in range(matrix_len):
+    matrix.append([])
+    for col in range(matrix_len):
+        matrix[row].append(random.choice([0, '*']))
+print_matrix(matrix)
+
+print()
+print()
+print()
+
+def how_many_boom(matrix, row, col):
+    count = 0
+    on_list = lambda x,y: 0 <= x < len(matrix) and 0 <= y < len(matrix)
+
+    for rows_offset in range(-1,2,1):
+        for cols_offset in range(-1,2,1):
+            if on_list(row + rows_offset, col + cols_offset):
+                if matrix[row + rows_offset][col + cols_offset] == '*':
+                    count += 1
+
+
+    matrix[row][col] = count
+
+def move_over_matrix(matrix):
+    for row in range(len(matrix)):
+        for col in range(len(matrix[row])):
+            if matrix[row][col] != '*':
+                how_many_boom(matrix, row, col)
+    print_matrix(matrix)
+
+move_over_matrix(matrix)
