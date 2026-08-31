@@ -91,10 +91,10 @@ def insert_lesson_into_schedule_and_return_invalid_lessons(lesson_lst):
     invalid_lesson = []
     for lesson in range(len(lesson_lst)):
         for hour in range(get_how_many_hours_lesson(lesson_lst[lesson]) + 1):#+1
-            if len(schedule[get_day_of_the_lesson_in_number(lesson_lst[lesson])]) < len(lesson_lst) and hour < get_how_many_hours_lesson(lesson_lst[lesson]):
-                if schedule[get_day_of_the_lesson_in_number(lesson_lst[lesson])][hour] != "Free":
-                    if lesson_lst[lesson] not in invalid_lesson:
-                        invalid_lesson.append(lesson_lst[lesson])
+            # if get_day_of_the_lesson_in_number(lesson_lst[lesson]) < len(lesson_lst) and hour < get_how_many_hours_lesson(lesson_lst[lesson]):
+            if schedule[get_day_of_the_lesson_in_number(lesson_lst[lesson])][hour] != "Free":
+                if lesson_lst[lesson] not in invalid_lesson:
+                    invalid_lesson.append(lesson_lst[lesson])
         if lesson_lst[lesson] not in invalid_lesson:
             for hour in range(get_how_many_hours_lesson(lesson_lst[lesson])):
                 try:
