@@ -16,6 +16,11 @@ STARTING_HOUR = 8
 DAY_LIST = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday']
 DAYS_DICT = {'sunday': 0, 'monday': 1, 'tuesday': 2, 'wednesday': 3, 'thursday': 4, 'friday': 5}
 
+#print schedule
+def print_schedule(days_amount, schedule):
+    for day in range(amount_of_days):
+        print(DAY_LIST[day] + ": " + str(schedule[day]))
+
 
 def get_amount_of_days():
     days_amount = int(input("Enter the amount of days:"))
@@ -37,6 +42,7 @@ amount_of_days = get_amount_of_days()
 hours_per_day = get_hours_per_day()
 schedule = []
 is_schedule_printed = False
+schedule_empty = False
 
 # Initializing the schedule
 def init_schedule(days_amount, hours_for_day):
@@ -50,7 +56,7 @@ def init_schedule(days_amount, hours_for_day):
 # The data is inserted:
 # [name of class]_[how many hours the class]_[day]_[starting hour]
 def get_inserted_schedule():
-    global is_schedule_printed
+    global is_schedule_printed, schedule_empty
     global schedule, amount_of_days
     schedule_lst = []
     lesson = input("Enter the data for the lesson:")
@@ -61,9 +67,10 @@ def get_inserted_schedule():
             while is_lesson_valid(lesson):
                 lesson = input("Enter the data for the lesson:")
         lesson = input("Enter the data for the lesson:")
-    if not schedule_lst and not is_schedule_printed:
-        print_schedule(amount_of_days, schedule)
+    if schedule_lst and not is_schedule_printed:
+        # print_schedule(amount_of_days, schedule)
         is_schedule_printed = True
+        schedule_empty = True
     return schedule_lst
 
 def get_lesson(lesson):
@@ -141,15 +148,13 @@ def is_invalid_lesson_can_be_added(copy_schedule, lesson_hours,lesson):
     return True
 
 
-#print schedule
-def print_schedule(days_amount, schedule):
-    for day in range(amount_of_days):
-        print(DAY_LIST[day] + ": " + str(schedule[day]))
 
 
 if __name__ == "__main__":
     init_schedule(amount_of_days, hours_per_day)
     inserted_lessons_lst = get_inserted_schedule()
-    invalid_lesson_list = insert_lesson_into_schedule_and_return_invalid_lessons(inserted_lessons_lst)
-    insert_invalid_lesson(invalid_lesson_list)
-
+    if schedule_empty:
+        invalid_lesson_list = insert_lesson_into_schedule_and_return_invalid_lessons(inserted_lessons_lst)
+        insert_invalid_lesson(invalid_lesson_list)
+    else:
+        print_schedule(amount_of_days, schedule)
