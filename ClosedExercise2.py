@@ -9,6 +9,7 @@ national_elections = {"Toronto" : [2800000, 38],
                       "Ottawa" : [880000 , 30]}
 
 
+
 national_elections_for_mominim = {}
 
 for city, votes in national_elections.items():
