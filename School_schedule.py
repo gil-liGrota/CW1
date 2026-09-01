@@ -68,7 +68,6 @@ def get_inserted_schedule():
                 lesson = input("Enter the data for the lesson:")
         lesson = input("Enter the data for the lesson:")
     if schedule_lst and not is_schedule_printed:
-        # print_schedule(amount_of_days, schedule)
         is_schedule_printed = True
         schedule_empty = True
     return schedule_lst
